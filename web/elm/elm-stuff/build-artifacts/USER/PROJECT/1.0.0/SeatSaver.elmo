@@ -1,0 +1,135 @@
+Elm.SeatSaver = Elm.SeatSaver || {};
+Elm.SeatSaver.make = function (_elm) {
+   "use strict";
+   _elm.SeatSaver = _elm.SeatSaver || {};
+   if (_elm.SeatSaver.values)
+   return _elm.SeatSaver.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "SeatSaver",
+   $Basics = Elm.Basics.make(_elm),
+   $Effects = Elm.Effects.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $StartApp = Elm.StartApp.make(_elm),
+   $Task = Elm.Task.make(_elm);
+   var update = F2(function (action,
+   model) {
+      return function () {
+         switch (action.ctor)
+         {case "Toggle":
+            return function () {
+                 var updateSeat = function (seatFromModel) {
+                    return _U.eq(seatFromModel.seatNo,
+                    action._0.seatNo) ? _U.replace([["occupied"
+                                                    ,$Basics.not(seatFromModel.occupied)]],
+                    seatFromModel) : seatFromModel;
+                 };
+                 return {ctor: "_Tuple2"
+                        ,_0: A2($List.map,
+                        updateSeat,
+                        model)
+                        ,_1: $Effects.none};
+              }();}
+         _U.badCase($moduleName,
+         "between lines 66 and 75");
+      }();
+   });
+   var Toggle = function (a) {
+      return {ctor: "Toggle"
+             ,_0: a};
+   };
+   var seatItem = F2(function (address,
+   seat) {
+      return function () {
+         var occupiedClass = seat.occupied ? "occupied" : "available";
+         return A2($Html.li,
+         _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
+                      "seat ",
+                      occupiedClass))
+                      ,A2($Html$Events.onClick,
+                      address,
+                      Toggle(seat))]),
+         _L.fromArray([$Html.text($Basics.toString(seat.seatNo))]));
+      }();
+   });
+   var view = F2(function (address,
+   model) {
+      return A2($Html.ul,
+      _L.fromArray([$Html$Attributes.$class("seats")]),
+      A2($List.map,
+      seatItem(address),
+      model));
+   });
+   var init = function () {
+      var seats = _L.fromArray([{_: {}
+                                ,occupied: false
+                                ,seatNo: 1}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 2}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 3}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 4}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 5}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 6}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 7}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 8}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 9}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 10}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 11}
+                               ,{_: {}
+                                ,occupied: false
+                                ,seatNo: 12}]);
+      return {ctor: "_Tuple2"
+             ,_0: seats
+             ,_1: $Effects.none};
+   }();
+   var Seat = F2(function (a,b) {
+      return {_: {}
+             ,occupied: b
+             ,seatNo: a};
+   });
+   var app = $StartApp.start({_: {}
+                             ,init: init
+                             ,inputs: _L.fromArray([])
+                             ,update: update
+                             ,view: view});
+   var main = app.html;
+   var tasks = Elm.Native.Task.make(_elm).performSignal("tasks",
+   app.tasks);
+   _elm.SeatSaver.values = {_op: _op
+                           ,app: app
+                           ,main: main
+                           ,Seat: Seat
+                           ,init: init
+                           ,Toggle: Toggle
+                           ,update: update
+                           ,view: view
+                           ,seatItem: seatItem};
+   return _elm.SeatSaver.values;
+};
